@@ -1,6 +1,8 @@
 package Client;
-import java.net;
+
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.Socket;
 
 // defines a client in client-server communication

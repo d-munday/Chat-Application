@@ -1,6 +1,10 @@
 package Server;
-import java.net;
+
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 // defines the server in client-server communication
 public class server {
@@ -15,7 +19,7 @@ public class server {
         * connection requests given a port number
         */
         try{
-            ss = new ServerSocket(port);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -26,7 +30,7 @@ public class server {
     public void initiateConnection(int port){ 
         clientSocket = null;
         try{
-            clientSocket = ss.accept();
+            clientSocket = serverSocket.accept();
         } catch (IOException e){
             System.out.println(e);
         }   
@@ -35,16 +39,17 @@ public class server {
     // gets message data from client socket
     public String getInput(){
         try{
-            input = new DataInputStream(ss.getInputStream());
+            input = new DataInputStream(clientSocket.getInputStream());
         } catch (IOException e){
             System.out.println(e);
         }
+        return input.toString();
     }
 
     // sends a message to the client
     public void outputMessage(){
         try{
-            output = new PrintStream(ss.getOutputStream());
+            output = new PrintStream(clientSocket.getOutputStream());
         } catch (IOException e){
             System.out.println(e);
         }
@@ -55,7 +60,7 @@ public class server {
         try{
             output.close();
             input.close();
-            ss.close();
+            serverSocket.close();
             clientSocket.close();
         } catch (IOException e){
             System.out.println(e);
