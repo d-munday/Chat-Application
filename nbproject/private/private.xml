@@ -4,10 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Client/GUI.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Client/main.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Client/client.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Client/Client.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Client/Chatroom.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Server/server.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Chat-Application/src/Server/main.java</file>
         </group>
     </open-files>
 </project-private>

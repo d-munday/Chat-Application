@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client;
+import Server.Server;
 
-import javax.swing.JOptionPane;
+public class GUI extends javax.swing.JFrame{
+    Server server;
+    String userName, port_number;
 
-/**
- *
- * @author Daniel
- */
-public class GUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form GUI
-     */
     public GUI() {
         initComponents();
     }
@@ -124,9 +113,12 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_portNumberActionPerformed
 
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEnterActionPerformed
-        // TODO add your handling code here:
+        userName = Username.getText();
+        port_number = portNumber.getText();
         dispose();
-       Chatroom chat=new Chatroom();
+        Chatroom chat = new Chatroom();
+        server = new Server(chat, Integer.parseInt(port_number));
+        server.start();
        chat.setVisible(true);
     }//GEN-LAST:event_jEnterActionPerformed
 
@@ -178,4 +170,5 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel portLabel;
     private javax.swing.JTextField portNumber;
     // End of variables declaration//GEN-END:variables
+
 }
