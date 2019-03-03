@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
 
 // defines the server in client-server communication
 public class server {
@@ -12,6 +13,8 @@ public class server {
     Socket clientSocket;
     DataInputStream input;
     PrintStream output;
+    HashSet<Socket> clients;
+    
     // constructor
     public server(int port){
         /**
@@ -23,14 +26,24 @@ public class server {
         } catch (IOException e) {
             System.out.println(e);
         }
+        clients = new HashSet<>();
     }
 
+    public server(){
+        /**
+        * sets up the server socket to listen to and accept
+        * connection requests given a default port number = 1025
+        */
+        this(1025);
+    }
+    
     // creates a client socket to facilitate communication with 
     // a specific client
     public void initiateConnection(int port){ 
         clientSocket = null;
         try{
             clientSocket = serverSocket.accept();
+            clients.add(clientSocket);
         } catch (IOException e){
             System.out.println(e);
         }   
@@ -55,6 +68,16 @@ public class server {
         }
     }
 
+    // closes socket of specfic client
+    public void closeClientSocket(Socket clientsSocket){
+        try{
+            clients.remove(clientsSocket);
+            clientsSocket.close();
+        } catch (IOException e){
+            System.out.println(e);
+        }
+    }
+    
     // closes all sockets and data streams
     public void close(){
         try{
@@ -62,6 +85,7 @@ public class server {
             input.close();
             serverSocket.close();
             clientSocket.close();
+            clients.clear();
         } catch (IOException e){
             System.out.println(e);
         }
