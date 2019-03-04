@@ -39,6 +39,7 @@ public class Server extends Thread{
         } catch (IOException e) {
             System.out.println(e);
         }
+        clients = new HashSet<>(); // creates hash set to store connected clients
     }
     
     @Override
@@ -47,20 +48,31 @@ public class Server extends Thread{
         InputStream is;
         try{
             clientSocket = serverSocket.accept();
-            clients.add(clientSocket);
+            clients.add(clientSocket); //This returns a boolean
             while(clientSocket != null){
                 is = clientSocket.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line = br.readLine();
                 if(line!= null){
-                    gui.write(line);
+                    if (line.toLowerCase().startsWith("/exitApp")) {
+                        gui.write(clientSocket.getInetAddress().getHostName() + "is leaving");
+                        return;
+                    }
+                    gui.write(clientSocket.getInetAddress().getHostName() + ": " + line);
                 }
             }
             clients.remove(clientSocket);
             clientSocket.close();
         } catch (IOException e){
             System.out.println(e);
-        }    
+        } finally {
+
+            try { 
+                clientSocket.close(); clients.remove(clientSocket); 
+            } catch (IOException e) {
+                System.out.println("Socket Closed");
+            }
+        } 
     }
 
 }
