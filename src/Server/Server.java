@@ -45,6 +45,7 @@ public class Server extends Thread{
     
     @Override
     public void run(){
+        System.out.println("Listening on port: " + port + "...");
         Socket clientSocket = null;
         InputStream is;
         try{
@@ -55,10 +56,11 @@ public class Server extends Thread{
                 String line = br.readLine();
                 System.out.println(line); // print out message
                 if(line!= null){
-                    if (line.toLowerCase().startsWith("/exitapp")) {
-                        System.out.println("Exit!");
+                    if (line.toLowerCase().startsWith("/stopserver")) {
+                        System.exit(0);
                     }
                 }
+                broadcastMsg(clientSocket, line);
             }
             clients.remove(clientSocket);
             clientSocket.close();
@@ -66,9 +68,21 @@ public class Server extends Thread{
             System.out.println(e);
         } 
     }
+    /**
+     * @param s The socket of the connected client
+     * @param msg The message to broadcast
+     */
+    public void broadcastMsg(Socket s, String msg){
+        try {
+            s.getOutputStream().write(msg.getBytes());
+            s.close();
+            System.out.println("Sent message: " + msg);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
     public static void main(String[] args) throws Exception {
         Server server = new Server();
         server.start();
-        System.out.println("Listening on port: " + server.getPort() + "...");
     }
 }

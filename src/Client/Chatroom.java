@@ -64,6 +64,7 @@ public class Chatroom extends javax.swing.JFrame implements Server.WritableGUI{
 
         attachname.setText("attachment");
 
+        txaChat.setEditable(false);
         txaChat.setColumns(20);
         txaChat.setRows(5);
         jScrollPane1.setViewportView(txaChat);
@@ -152,7 +153,8 @@ public class Chatroom extends javax.swing.JFrame implements Server.WritableGUI{
 
     private void messageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageActionPerformed
         int targetPort = Integer.parseInt(txtfPort.getText());
-        Client client = new Client(message.getText(),txfHostName.getText(),targetPort);
+        String msg = message.getText();
+        Client client = new Client("default",msg, txfHostName.getText(), targetPort);
         client.start();
         message.setText(""); // clear input field
     }//GEN-LAST:event_messageActionPerformed
@@ -196,7 +198,6 @@ public class Chatroom extends javax.swing.JFrame implements Server.WritableGUI{
             java.util.logging.Logger.getLogger(Chatroom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
