@@ -53,8 +53,8 @@ public class GUI extends javax.swing.JFrame{
         });
 
         jTextField3.setEditable(false);
-        jTextField3.setBackground(new java.awt.Color(0, 0, 225));
-        jTextField3.setText("                                           ChatApp");
+        jTextField3.setBackground(new java.awt.Color(51, 153, 255));
+        jTextField3.setText("                                       ChatApp");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -117,9 +117,7 @@ public class GUI extends javax.swing.JFrame{
         port_number = portNumber.getText();
         dispose();
         Chatroom chat = new Chatroom();
-        server = new Server(chat, Integer.parseInt(port_number));
-        server.start();
-       chat.setVisible(true);
+        chat.setVisible(true);
     }//GEN-LAST:event_jEnterActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed

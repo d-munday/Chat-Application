@@ -1,23 +1,14 @@
 package Client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 // defines a client in client-server communication
 public class Client extends Thread{
-    String hostName, message;
-    Scanner input;
-    PrintWriter output;
+    String hostName, message; // hostName = server address
     int port;
     
-    // constructor
+    // default constructor
     public Client(){
 
     }
@@ -38,26 +29,14 @@ public class Client extends Thread{
 
     @Override
     public void run(){
+        // open a connection, send a message and close connection
         try {
             Socket s = new Socket(hostName, port);
-            input = new Scanner(s.getInputStream());
-            output = new PrintWriter(s.getOutputStream(), true);
             s.getOutputStream().write(message.getBytes());
-            while(input.hasNextLine()){
-                output.write(input.nextLine() + "\n");
-            }
             s.close();
+            System.out.println("Sent message: " + message);
         } catch (IOException e) {
             System.out.println(e);
-        } finally {
-            //s.close();
-        }
-    }
-    
-    public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
-            System.err.println("Pass the server IP as the sole command line argument");
-            return;
         }
     }
 }
